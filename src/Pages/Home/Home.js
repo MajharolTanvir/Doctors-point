@@ -14,6 +14,7 @@ const Home = () => {
             <Service></Service>
             <DoctorAppointment></DoctorAppointment>
             <PatientReviews></PatientReviews>
+            
         </div>
     );
 };
