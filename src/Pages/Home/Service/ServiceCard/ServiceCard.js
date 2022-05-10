@@ -26,9 +26,9 @@ const ServiceCard = () => {
     ]
     return (
         <div className='container mx-auto my-20'>
-            <div className='grid grid-cols-1 md:grid-cols-w lg:grid-cols-3'>
+            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
                 {
-                    services.map(service => <div key={service.id} className="card w-96 shadow-xl mx-auto">
+                    services.map(service => <div key={service.id} className="card w-full shadow-xl mx-auto">
                         <figure className="px-10 pt-10">
                             <img src={service.img} alt="Shoes" className="rounded-xl" />
                         </figure>

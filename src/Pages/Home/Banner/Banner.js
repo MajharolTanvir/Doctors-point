@@ -1,5 +1,6 @@
 import React from 'react';
 import banner from '../../../assets/images/chair.png'
+import SharedButton from '../../../shared/SharedButton'
 import './Banner.css'
 
 const Banner = () => {
@@ -11,7 +12,7 @@ const Banner = () => {
                     <div>
                         <h1 className="text-3xl lg:text-5xl font-bold">Your New Smile Starts Here</h1>
                         <p className="py-6">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
-                        <button className="btn bg-gradient-to-r from-secondary to-primary font-bold">Get Started</button>
+                        <SharedButton>Get STARTED</SharedButton>
                     </div>
                 </div>
             </div>
