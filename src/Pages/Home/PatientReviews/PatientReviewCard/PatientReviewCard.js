@@ -13,7 +13,7 @@ const PatientReviewCard = () => {
         <div className='py-20'>
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3'>
                 {
-                    reviews.map(review => <div className="card w-96 shadow-xl text-neutral-content">
+                    reviews.map(review => <div key={review.id} className="card w-96 shadow-xl text-neutral-content">
                         <div className="card-body items-center text-center">
                             <p className="flex text-justify">{review.review}</p>
                             <div className="card-actions justify-between items-center mt-10 gap-6">
