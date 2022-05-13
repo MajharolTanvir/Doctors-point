@@ -5,7 +5,7 @@ import './Banner.css'
 
 const Banner = () => {
     return (
-        <div className='container mx-auto banner-bg'>
+        <div className='container mx-auto banner-bg bg-cover'>
             <div className="hero min-h-screen">
                 <div className="hero-content flex-col lg:flex-row-reverse">
                     <img src={banner} alt='' className="lg:max-w-2xl rounded-lg shadow-2xl" />
