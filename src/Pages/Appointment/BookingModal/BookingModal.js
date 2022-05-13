@@ -1,8 +1,11 @@
 import { format } from 'date-fns';
 import React from 'react';
+import auth from '../../../firebase.init';
+import { useAuthState } from 'react-firebase-hooks/auth';
 
 const BookingModal = ({ treatment, setTreatment, date }) => {
     const { name, slots } = treatment
+    const [user] = useAuthState(auth)
 
     const handleSubmit = event => {
         event.preventDefault()
@@ -25,10 +28,10 @@ const BookingModal = ({ treatment, setTreatment, date }) => {
                         <input type="text" name='treatment' value={name} className="input w-full max-w-xs border-2 border-gray-200" disabled />
                         <input type="text" name='date' value={format(date, "PP")} className="input w-full max-w-xs border-2 border-gray-200" disabled />
                         <select name='slot' className="select select-ghost w-full max-w-xs border-2 border-gray-200">
-                            {slots.map(slot => <option>{slot}</option>)}
+                            {slots.map((slot, index) => <option key={index}>{slot}</option>)}
                         </select>
-                        <input name='name' type="text" placeholder="Full name" className="input w-full max-w-xs border-2 border-gray-200" />
-                        <input name='email' type="text" placeholder="Email address" className="input w-full max-w-xs border-2 border-gray-200" />
+                        <input name='name' type="text" placeholder="Full name" value={user?.displayName} className="input w-full max-w-xs border-2 border-gray-200" disabled />
+                        <input name='email' type="text" value={user?.email} placeholder="Email address" className="input w-full max-w-xs border-2 border-gray-200" disabled />
                         <input name='phone' type="text" placeholder="Phone number" className="input w-full max-w-xs border-2 border-gray-200" />
                         <input type="submit" value="Submit" className="btn bg-gradient-to-r from-secondary to-primary font-bold text-white mt-0 max-w-xs w-full" />
                     </form>

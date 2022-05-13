@@ -38,8 +38,6 @@ const Registration = () => {
         await createUserWithEmailAndPassword(data.Email, data.Password)
         await updateProfile({ displayName: data.displayName })
         navigate(from, { replace: true })
-        console.log(user);
-
     };
     return (
         <div className='flex justify-center items-center my-10'>

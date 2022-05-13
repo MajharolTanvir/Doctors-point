@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import SocialLink from '../../shared/SocialLink'
 import { useForm } from "react-hook-form";
 import auth from '../../firebase.init';
@@ -19,9 +19,12 @@ const Login = () => {
     const location = useLocation()
     let from = location.state?.from?.pathname || "/";
 
-    if (user) {
-        navigate(from, { replace: true })
-    }
+    useEffect(() => {
+        if (user) {
+            navigate(from, { replace: true })
+        }
+    }, [user, from, navigate])
+
 
     if (loading) {
         return <Loading></Loading>
@@ -33,7 +36,6 @@ const Login = () => {
     }
 
     const onSubmit = data => {
-        console.log(data)
         signInWithEmailAndPassword(data.Email, data.Password)
 
     };
