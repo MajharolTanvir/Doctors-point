@@ -2,16 +2,20 @@ import React from 'react';
 import auth from '../firebase.init'
 import { useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import Loading from './Loading';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const SocialLink = () => {
     const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
+    const navigate = useNavigate()
+    const location = useLocation()
+    let from = location.state?.from?.pathname || "/";
 
     if (loading) {
         return <Loading></Loading>
     }
-    
+
     if (user) {
-        console.log(user);
+        navigate(from, { replace: true })
     }
 
 

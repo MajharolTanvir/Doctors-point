@@ -2,7 +2,7 @@ import React from 'react';
 import Loading from '../../shared/Loading';
 import SocialLink from '../../shared/SocialLink';
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import auth from '../../firebase.init';
 import { useCreateUserWithEmailAndPassword, useUpdateProfile } from 'react-firebase-hooks/auth';
 
@@ -15,6 +15,8 @@ const Registration = () => {
     ] = useCreateUserWithEmailAndPassword(auth);
 
     const navigate = useNavigate()
+    const location = useLocation()
+    let from = location.state?.from?.pathname || "/";
 
     const [updateProfile, updating, updateError] = useUpdateProfile(auth);
 
@@ -35,7 +37,7 @@ const Registration = () => {
     const onSubmit = async data => {
         await createUserWithEmailAndPassword(data.Email, data.Password)
         await updateProfile({ displayName: data.displayName })
-        navigate('/appointment')
+        navigate(from, { replace: true })
         console.log(user);
 
     };
