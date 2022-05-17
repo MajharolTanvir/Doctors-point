@@ -15,6 +15,8 @@ const Login = () => {
     ] = useSignInWithEmailAndPassword(auth);
     const { register, formState: { errors }, handleSubmit } = useForm();
 
+    
+
     const navigate = useNavigate()
     const location = useLocation()
     let from = location.state?.from?.pathname || "/";
@@ -32,13 +34,17 @@ const Login = () => {
 
     let signInError;
     if (error) {
-        signInError = <p><small>{error.message}</small></p>
+        signInError = <p><small>{error.message }</small></p>
     }
 
     const onSubmit = data => {
+        console.log(data);
         signInWithEmailAndPassword(data.Email, data.Password)
-
     };
+    const handleReset = () => {
+        navigate('/forgetPass')
+    }
+
     return (
         <div className='flex justify-center items-center my-10'>
             <div className="card w-96 shadow-xl">
@@ -84,7 +90,7 @@ const Login = () => {
                             {errors.Password?.type === 'minLength' && <span className="label-text-alt text-red-500">{errors.Password.message}</span>}
                         </label>
                         <label className="label">
-                            <span className="label-text-alt">Forget password?</span>
+                            <span className="label-text-alt"><button onClick={handleReset}>Forget password?</button></span>
                         </label>
                         {signInError}
                         <input className="btn btn-accent w-full max-w-xs" type="submit" value="Login" />

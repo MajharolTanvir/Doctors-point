@@ -4,7 +4,9 @@ import SocialLink from '../../shared/SocialLink';
 import { useForm } from "react-hook-form";
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import auth from '../../firebase.init';
-import { useCreateUserWithEmailAndPassword, useUpdateProfile } from 'react-firebase-hooks/auth';
+import { useCreateUserWithEmailAndPassword, useSendEmailVerification, useUpdateProfile } from 'react-firebase-hooks/auth';
+import { toast, ToastContainer } from 'react-toastify';
+
 
 const Registration = () => {
     const [
@@ -13,6 +15,8 @@ const Registration = () => {
         loading,
         error,
     ] = useCreateUserWithEmailAndPassword(auth);
+
+    const [sendEmailVerification, sending, verifyError] = useSendEmailVerification(auth);
 
     const navigate = useNavigate()
     const location = useLocation()
@@ -26,19 +30,22 @@ const Registration = () => {
         console.log(user);
     }
 
-    if (loading || updating) {
+    if (loading || updating || sending) {
         return <Loading></Loading>
     }
 
     let signInError;
-    if (error || updateError) {
-        signInError = <p><small>{error.message || updateError.message}</small></p>
+    if (error || updateError || verifyError) {
+        signInError = <p><small>{error.message || updateError.message || verifyError.message}</small></p>
     }
     const onSubmit = async data => {
         await createUserWithEmailAndPassword(data.Email, data.Password)
+        await sendEmailVerification()
+        toast('Send email verification')
         await updateProfile({ displayName: data.displayName })
         navigate(from, { replace: true })
     };
+
     return (
         <div className='flex justify-center items-center my-10'>
             <div className="card w-96 shadow-xl">
@@ -97,9 +104,6 @@ const Registration = () => {
                             {errors.Password?.type === 'required' && <span className="label-text-alt text-red-500">{errors.Password.message}</span>}
                             {errors.Password?.type === 'minLength' && <span className="label-text-alt text-red-500">{errors.Password.message}</span>}
                         </label>
-                        <label className="label">
-                            <span className="label-text-alt">Forget password?</span>
-                        </label>
                         {signInError}
                         <input className="btn btn-accent w-full max-w-xs" type="submit" value="Sign up" />
                     </form>
@@ -110,6 +114,7 @@ const Registration = () => {
                 <div className="divider">OR</div>
                 <SocialLink></SocialLink>
             </div>
+            <ToastContainer></ToastContainer>
         </div>
     );
 };
