@@ -23,7 +23,7 @@ const BookingModal = ({ treatment, setTreatment, date, refetch }) => {
             phone: event.target.phone.value,
         }
         console.log(booking);
-        fetch('http://localhost:5000/booking', {
+        fetch('https://gentle-basin-92445.herokuapp.com/booking', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'

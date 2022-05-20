@@ -11,7 +11,7 @@ const AppointmentCard = ({ date }) => {
     const formattedDate = format(date, 'PP')
 
     const { data: services, isLoading, refetch, } = useQuery(['appointment', formattedDate], () =>
-        fetch(`http://localhost:5000/available?date=${formattedDate}`)
+        fetch(`https://gentle-basin-92445.herokuapp.com/available?date=${formattedDate}`)
             .then(res => res.json())
     )
     if (isLoading) {

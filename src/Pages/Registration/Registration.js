@@ -6,6 +6,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import auth from '../../firebase.init';
 import { useCreateUserWithEmailAndPassword, useSendEmailVerification, useUpdateProfile } from 'react-firebase-hooks/auth';
 import { toast, ToastContainer } from 'react-toastify';
+import useToken from '../../hooks/useToken';
 
 
 const Registration = () => {
@@ -18,6 +19,8 @@ const Registration = () => {
 
     const [sendEmailVerification, sending, verifyError] = useSendEmailVerification(auth);
 
+    const [token] = useToken(user)
+
     const navigate = useNavigate()
     const location = useLocation()
     let from = location.state?.from?.pathname || "/";
@@ -26,8 +29,8 @@ const Registration = () => {
 
     const { register, formState: { errors }, handleSubmit } = useForm();
 
-    if (user) {
-        console.log(user);
+    if (token) {
+        navigate(from, { replace: true })
     }
 
     if (loading || updating || sending) {
@@ -43,7 +46,7 @@ const Registration = () => {
         await sendEmailVerification()
         toast('Send email verification')
         await updateProfile({ displayName: data.displayName })
-        navigate(from, { replace: true })
+
     };
 
     return (
