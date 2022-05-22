@@ -13,7 +13,7 @@ const CheckoutForm = ({ appointment }) => {
     const { _id, price, patientName, patientEmail } = appointment;
 
     useEffect(() => {
-        fetch('http://localhost:5000/create-payment-intent', {
+        fetch('https://gentle-basin-92445.herokuapp.com/create-payment-intent', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',
@@ -74,7 +74,7 @@ const CheckoutForm = ({ appointment }) => {
                 appointment: _id,
                 transactionId: paymentIntent.id,
             }
-            fetch(`http://localhost:5000/booking/${_id}`, {
+            fetch(`https://gentle-basin-92445.herokuapp.com/booking/${_id}`, {
                 method: 'PATCH',
                 headers: {
                     'content-type': 'application/json',

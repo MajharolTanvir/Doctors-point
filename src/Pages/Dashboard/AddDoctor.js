@@ -7,7 +7,7 @@ import Loading from '../../shared/Loading';
 const AddDoctor = () => {
     const { register, formState: { errors }, handleSubmit, reset } = useForm();
 
-    const { data: services, isLoading } = useQuery('services', () => fetch('http://localhost:5000/service').then(res => res.json()))
+    const { data: services, isLoading } = useQuery('services', () => fetch('https://gentle-basin-92445.herokuapp.com/service').then(res => res.json()))
 
     const imageStorageKey = 'e13c0deb95648d59c098b58894a2f7c7';
 
@@ -31,7 +31,7 @@ const AddDoctor = () => {
                         img: img
                     }
                     console.log(doctor);
-                    fetch('http://localhost:5000/doctor', {
+                    fetch('https://gentle-basin-92445.herokuapp.com/doctor', {
                         method: 'POST',
                         headers: {
                             'content-type': 'application/json',
